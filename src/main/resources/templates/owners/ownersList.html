@@ -27,7 +27,7 @@
 		</tbody>
 	</table>
 	<div th:if="${totalPages > 1}">
-		<span>ページ:</span>
+		<span>Pages:</span>
 		<span>[</span>
 		<span th:each="i: ${#numbers.sequence(1, totalPages)}">
 			<a th:if="${currentPage != i}" th:href="@{'/owners?page=' + ${i}}">[[${i}]]</a>
@@ -46,13 +46,13 @@
 		</span>
 		<span>
 			<a th:if="${currentPage < totalPages}" th:href="@{'/owners?page=__${currentPage + 1}__'}" title="Next"
-			   class="fa fa-step-foward"></a>
+			   class="fa fa-step-forward"></a>
 			<span th:unless="${currentPage < totalPages}" title="Next" class="fa fa-step-forward"></span>
 		</span>
 		<span>
 			<a th:if="${currentPage < totalPages}" th:href="@{'/owners?page=__${totalPages}__'}" title="Last"
-			   class="fa fa-fast-foward"></a>
-			<span th:unless="${currentPage < totalPages}" title="Last" class="fa fa-step-forward"></span>
+			   class="fa fa-fast-forward"></a>
+			<span th:unless="${currentPage < totalPages}" title="Last" class="fa fa-fast-forward"></span>
 		</span>
 	</div>
 </body>
