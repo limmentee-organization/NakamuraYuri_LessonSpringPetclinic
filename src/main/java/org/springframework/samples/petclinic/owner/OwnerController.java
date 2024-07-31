@@ -94,6 +94,8 @@ public class OwnerController {
 			return "redirect:/owners/" + owner.getId();
 			
 		}
+		
+		//multiole owners found
 		return addPaginationModel(page, model, ownersResults);
 	}
 	
