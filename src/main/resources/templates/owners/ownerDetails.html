@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="https://www.thymleaf.org" th:replace="~{fragments/layout :: layout (~{::body}, 'owners')}">
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body}, 'owners')}">
 
 	<body>
 		
@@ -33,8 +33,8 @@
 			</tr>
 		</table>
 		
-		<a th:href="@{__${owner.id}_/edit}" class="btn btn-primary">Edit Owner</a>
-		<a th:href="@{__${owner.id}_/pets/new}" class="btn btn-primary">Add New Pet</a>
+		<a th:href="@{__${owner.id}__/edit}" class="btn btn-primary">Edit Owner</a>
+		<a th:href="@{__${owner.id}__/pets/new}" class="btn btn-primary">Add New Pet</a>
 		
 		<br/>
 		<br/>
@@ -48,12 +48,12 @@
 						<dt>Name</dt>
 						<dd th:text="${pet.name}"></dd>
 						<dt>Birth Date</dt>
-						<dd th:text="${#temporals.foemat(pet.birthDate, 'yyyy-MM-dd')}"></dd>
+						<dd th:text="${#temporals.format(pet.birthDate, 'yyyy-MM-dd')}"></dd>
 						<dt>Type</dt>
 						<dd th:text="${pet.type}"></dd>
 					</dl>
 				</td>
-				<td>
+				<td valign="top">
 					<table class="table-condensed">
 						<thead>
 							<tr>
@@ -61,15 +61,17 @@
 								<th>Description</th>
 							</tr>
 						</thead>
-					</table>
 					<tr th:each="visit : ${pet.visits}">
-						<td th:text="temporals.format(visit.date, 'yyyy-MM-dd)}'"></td>
+						<td th:text="${#temporals.format(visit.date, 'yyyy-MM-dd)}'"></td>
 						<td th:text="${visit?.description}"></td>
 					</tr>
 					<tr>
-						<td><a th:herf="@{__${owner.id}__/pets/__${pet.id}__/edit}">Edit</a></td>
-						<td><a th:herf="@{__${owner.id}__/pets/__${pet.id}__/visits/new}">Add Visit</a></td>
-					</tr>
+						<td><a th:href="@{__${owner.id}__/pets/__${pet.id}__/edit}">Edit</a></td>
+						<td> 	
+	<a th:href="@{__${owner.id}__/pets/__${pet.id}__/visits/new}">Add Visit</a> 	
+	</td>
+						</tr>
+					</table>
 				</td>
 			</tr>
 		</table>
@@ -78,7 +80,7 @@
 			// Function to hide the success and error messages after 3 seconds
 			function hideMessages() {
 				setTimeout(function() {
-					document.getElementById("succses-message").style.display = "none";
+					document.getElementById("success-message").style.display = "none";
 					document.getElementById("error-message").style.display = "none";
 				}, 3000);
 			}
