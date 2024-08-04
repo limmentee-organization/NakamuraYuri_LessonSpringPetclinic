@@ -34,6 +34,16 @@ class PetController {
 		return this.owners.findPetTypes();
 	}
 	
+	@ModelAttribute("owner")
+	public Owner findOwner(@PathVariable("ownerId") int ownerId) {
+
+		Owner owner = this.owners.findById(ownerId);
+		if (owner == null) {
+			throw new IllegalArgumentException("Owner ID found: " + ownerId);
+		}
+		return owner;
+	}
+	
 	@ModelAttribute("pet")
 	public Pet findPet(@PathVariable("ownerId") int ownerId,
 			@PathVariable(name = "petId", required = false) Integer petId) {
@@ -47,6 +57,11 @@ class PetController {
 			throw new IllegalArgumentException("Owner ID not found: " + ownerId);
 		}
 		return owner.getPet(petId);
+	}
+	
+	@InitBinder("owner")
+	public void initOwnerBinder(WebDataBinder dataBinder) {
+		dataBinder.setDisallowedFields("id");
 	}
 	
 	@InitBinder("pet")
@@ -74,21 +89,29 @@ class PetController {
 			result.rejectValue("birthDate", "typeMismatch.birthDate");
 		}
 		
+		owner.addPet(pet);
 		if (result.hasErrors()) {
 			model.put("pet", pet);
 			return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
 		}
 		
-		owner.addPet(pet);
 		this.owners.save(owner);
-		redirectAttributes.addFlashAttribute("message", "Pet details has been edited");
+		redirectAttributes.addFlashAttribute("message", "New Pet has been Added");
 		return "redirect:/owners/{ownersId}";
 	}
 	
-	@GetMapping("/pet/{petId}/edit")
+	@GetMapping("/pets/{petId}/edit")
+	public String initUpdateForm(Owner owner, @PathVariable("petId") int petId, ModelMap model,
+			RedirectAttributes redirectAttributes) {
+		Pet pet = owner.getPet(petId);
+		model.put("pet", pet);
+		return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
+	}
+	
+	@PostMapping("/pets/{petId}/edit")
 	public String processUpdateFrom(@Valid Pet pet, BindingResult result, Owner owner, ModelMap model,
 			RedirectAttributes redirectAttributes) {
-		
+
 		String petName = pet.getName();
 		
 		// checking if the pet name alrady exist for the owner

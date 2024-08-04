@@ -1,4 +1,4 @@
-<html xmlns:th="https://www.thymelesf.org" th:replace="~{fragments/layout :: (~{body}, 'owners')}">
+<html xmlns:th="https://www.thymelesf.org" th:replace="~{fragments/layout :: layout (~{::body}, 'owners')}">
 	<body>
 		<h2>
 			<th:block th:if="${visit['new']}">New </th:block>
@@ -26,7 +26,7 @@
 		<form th:object="${visit}" class="form-horizontal" method="post">
 			<div class="form-group has-feedback">
 				<input th:replace="~{fragments/inputField :: input ('Date', 'date', 'date')}"/>
-				<input th:replace="~{fragments/inputField :: input ('Description', 'discription', 'text')}"/>
+				<input th:replace="~{fragments/inputField :: input ('Description', 'description', 'text')}"/>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
