@@ -1,0 +1,29 @@
+<html xmlns:th="https://www.thymeleaf.org"
+	th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
+<body>
+	
+	<h2>Find Owners</h2>
+	
+	<form class="form-horizontal" id="search-owner-form">
+		<div class="form-group">
+			<div class="control-group" id="lastNameGroup">
+				<label class="col-sm-2 control-label">Last name</label>
+				<div class="col-sm-2">
+					<input class="form-control" size="30" maxlength="80">
+					<span class="help-inline">
+						<div>
+							<p>Error</p>
+						</div>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button>Find Owner</button>
+			</div>			
+		</div>
+		<a class="btn btn-primary" href="/owners/new">Add Owner</a>
+	</form>
+</body>	
+</html>
