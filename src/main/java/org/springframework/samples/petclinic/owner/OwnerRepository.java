@@ -1,5 +1,7 @@
 package org.springframework.samples.petclinic.owner;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -8,6 +10,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface OwnerRepository extends Repository<Owner, Integer> {
+	
+	/**
+	 * Retrieve all {@link PetType}s from the data store.
+	 * @return a Collection of {@link PetType}s. 
+	 */
+	@Query("SELECT ptype FROM PetType ptype ORDER BY ptype.name")
+	@Transactional(readOnly = true)
+	List<PetType> findPetTypes();
 	
 	/**
 	 * Retrieve {@link Owner}s from the data store by last name, returning all owners
@@ -35,5 +45,11 @@ public interface OwnerRepository extends Repository<Owner, Integer> {
 	 * @param owner the {@link Owner} to save
 	 */
 	void save(Owner owner);
-
+	
+	/**
+	 * Returns all the owners from data store
+	 */
+	@Query("SELECT owner FROM Owner owner")
+	@Transactional(readOnly = true)
+	Page<Owner> findAll(Pageable pageable);
 }
