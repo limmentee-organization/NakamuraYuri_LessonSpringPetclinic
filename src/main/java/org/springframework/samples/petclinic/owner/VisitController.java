@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.validation.Valid;
 
 @Controller
-public class VisitController {
+class VisitController {
 	
 	private final OwnerRepository owners;
 	
@@ -47,7 +47,7 @@ public class VisitController {
 		return "pets/createOrUpdateVisitForm";
 	}
 	
-	@PostMapping("/owners/{ownerId}/pets/{petId}/visit/new")
+	@PostMapping("/owners/{ownerId}/pets/{petId}/visits/new")
 	public String processNewVisitForm(@ModelAttribute Owner owner, @PathVariable int petId, @Valid Visit visit,
 			BindingResult result, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {

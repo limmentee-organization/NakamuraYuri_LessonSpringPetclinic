@@ -97,7 +97,7 @@ class PetController {
 		
 		this.owners.save(owner);
 		redirectAttributes.addFlashAttribute("message", "New Pet has been Added");
-		return "redirect:/owners/{ownersId}";
+		return "redirect:/owners/{ownerId}";
 	}
 	
 	@GetMapping("/pets/{petId}/edit")
