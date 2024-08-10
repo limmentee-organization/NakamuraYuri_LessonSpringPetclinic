@@ -109,16 +109,16 @@ class PetController {
 	}
 	
 	@PostMapping("/pets/{petId}/edit")
-	public String processUpdateFrom(@Valid Pet pet, BindingResult result, Owner owner, ModelMap model,
+	public String processUpdateForm(@Valid Pet pet, BindingResult result, Owner owner, ModelMap model,
 			RedirectAttributes redirectAttributes) {
 
 		String petName = pet.getName();
 		
-		// checking if the pet name alrady exist for the owner
+		// checking if the pet name already exist for the owner
 		if (StringUtils.hasText(petName)) {
 			Pet existingPet = owner.getPet(petName.toLowerCase(), false);
 			if (existingPet != null && existingPet.getId() != pet.getId()) {
-				result.rejectValue("name",  "duplicate", "already exists");
+				result.rejectValue("name", "duplicate", "already exists");
 			}
 		}
 		
