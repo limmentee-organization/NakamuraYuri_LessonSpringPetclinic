@@ -28,7 +28,7 @@ import jakarta.validation.Valid;
  * @author Michael Isvy
  */
 @Controller
-public class OwnerController {
+class OwnerController {
 	
 	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
 	
@@ -137,8 +137,8 @@ public class OwnerController {
 	}
 	
 	@GetMapping("/owners/{ownerId}")
-	private ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
-		ModelAndView mav = new ModelAndView("/owners/ownerDetails");
+	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
+		ModelAndView mav = new ModelAndView("owners/ownerDetails");
 		Owner owner = this.owners.findById(ownerId);
 		mav.addObject(owner);
 		return mav;
