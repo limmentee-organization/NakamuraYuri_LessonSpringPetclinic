@@ -39,7 +39,7 @@ class PetController {
 
 		Owner owner = this.owners.findById(ownerId);
 		if (owner == null) {
-			throw new IllegalArgumentException("Owner ID found: " + ownerId);
+			throw new IllegalArgumentException("Owner ID not found: " + ownerId);
 		}
 		return owner;
 	}
