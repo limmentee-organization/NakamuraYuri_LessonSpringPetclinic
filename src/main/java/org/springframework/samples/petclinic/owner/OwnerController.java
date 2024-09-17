@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class OwnerController {
@@ -72,6 +73,14 @@ public class OwnerController {
 		int pageSize = 5;
 		Pageable pageable = PageRequest.of(page -1, pageSize);
 		return owners.findByLastName(lastname, pageable);
+	}
+	
+	@GetMapping("/owners/{ownerId}")
+	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
+		ModelAndView mav = new ModelAndView("owners/ownerDetails");
+		Owner owner = this.owners.findById(ownerId);
+		mav.addObject(owner);
+		return mav;
 	}
 	
 
