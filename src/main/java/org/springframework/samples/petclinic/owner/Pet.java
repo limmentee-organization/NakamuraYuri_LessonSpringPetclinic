@@ -32,7 +32,7 @@ public class Pet extends NamedEntity {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "pet_id")
-	@OrderBy("visit_dare ASC")
+	@OrderBy("visit_date ASC")
 	private Set<Visit> visits = new LinkedHashSet<>();
 	
 	public LocalDate getBirthDate() {
