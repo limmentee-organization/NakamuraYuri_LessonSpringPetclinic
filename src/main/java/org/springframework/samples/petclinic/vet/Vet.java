@@ -21,13 +21,15 @@ import jakarta.xml.bind.annotation.XmlElement;
 @Entity
 @Table(name = "vets")
 public class Vet extends Person {
-	
+	// テーブル同士が多対多の関係になるように中間テーブルを用意してくれるアノテーション
 	@ManyToMany(fetch = FetchType.EAGER)
+	// 指定したカラムを中間テーブルにマッピングしてくれる
 	@JoinTable(name = "vet_specialties", joinColumns = @JoinColumn(name = "vet_id"),
 			inverseJoinColumns = @JoinColumn(name = "specialty_id"))
 	private Set<Specialty> specialties;
 	
 	protected Set<Specialty> getSpecialtiesInternal() {
+		// specialtiesがnullの場合は初期化する
 		if(this.specialties == null) {
 			this.specialties = new HashSet<>();
 		}
@@ -40,12 +42,16 @@ public class Vet extends Person {
 	
 	@XmlElement
 	public List<Specialty> getSpecialties() {
+		// getSpecialtiesInternal()をsortedSpecsリストの初期値に設定する
 		List<Specialty> sortedSpecs = new ArrayList<>(getSpecialtiesInternal());
+		// sortedSpecsリスト内のnameを昇順に並び替える
 		PropertyComparator.sort(sortedSpecs, new MutableSortDefinition("name", true, true));
+		// リスト内の要素を編集できないように読み取り専用にして返却する
 		return Collections.unmodifiableList(sortedSpecs);
 	}
 	
 	public int getNrOfSpecialties() {
+		// getSpecialtiesInternalの件数を返却する
 		return getSpecialtiesInternal().size();
 	}
 	

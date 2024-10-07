@@ -20,10 +20,14 @@ class VetController {
 		this.vetRepository = clinicService;
 	}
 	
+	// 獣医一覧画面を表示する処理
 	@GetMapping("/vets.html")
+	//@RequestParam:ページ番号のデフォルト値を1で設定している
 	public String showVetList(@RequestParam(defaultValue = "1") int page, Model model) {
 		Vets vets = new Vets();
+		// findPaginatedを呼び出しpaginatedに格納する
 		Page<Vet> paginated = findPaginated(page);
+		// 
 		vets.getVetList().addAll(paginated.toList());
 		return addPaginationModel(page, paginated, model);
 	}
@@ -44,6 +48,7 @@ class VetController {
 	}
 	
 	@GetMapping({"/vets"})
+	// @ResponseBody:指定したメソッドの戻り値をコンテンツとしてそのまま表示できる
 	public @ResponseBody Vets showResouecesVetList() {
 		Vets vets = new Vets();
 		vets.getVetList().addAll(this.vetRepository.findAll());
