@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface VetRepository extends Repository<Vet, Integer> {
 	
+	// 読み取り専用のトランザクションとして設定する
 	@Transactional(readOnly = true)
+	// 指定したメソッドをキャッシュの対象として設定する
 	@Cacheable("vets")
 	Collection<Vet> findAll() throws DataAccessException;
 	
