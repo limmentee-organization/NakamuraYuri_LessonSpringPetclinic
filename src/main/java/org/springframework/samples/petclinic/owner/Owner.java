@@ -80,8 +80,10 @@ public class Owner extends Person{
 	
 	public Pet getPet(Integer id) {
 		for(Pet pet : getPets()) {
+			// petIdがNullでない場合
 			if(!pet.isNew()) {
 				Integer compId = pet.getId();
+				// petIdが登録済みの場合
 				if(compId.equals(id)) {
 					return pet;
 				}
@@ -91,9 +93,12 @@ public class Owner extends Person{
 	}
 	
 	public Pet getPet(String name, boolean ignoreNew) {
+		// 名前を小文字に変換
 		name = name.toLowerCase();
 		for(Pet pet : getPets()) {
 			String compName = pet.getName();
+			// petnameがNullではないかつ
+			// nameがpetnameと一致している場合（大文字小文字の区別なし）
 			if(compName != null && compName.equalsIgnoreCase(name)) {
 				if(!ignoreNew || !pet.isNew()) {
 				return pet;

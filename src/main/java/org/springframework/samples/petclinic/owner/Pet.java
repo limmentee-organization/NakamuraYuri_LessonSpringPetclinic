@@ -22,7 +22,9 @@ import jakarta.persistence.Table;
 @Table(name = "pets")
 public class Pet extends NamedEntity {
 	
+	// @Column：DBに登録されているカラムとマッピングする
 	@Column(name = "birth_date")
+	// LocalDateのフォーマットを指定する（例：2024-04-01）
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthDate;
 	
@@ -30,6 +32,7 @@ public class Pet extends NamedEntity {
 	@JoinColumn(name = "type_id")
 	private PetType type;
 	
+	// CascadeType.ALL:このエンティティに対して行われる操作（削除、結合など）を関連先にも落とし込まれる
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "pet_id")
 	@OrderBy("visit_dare ASC")
